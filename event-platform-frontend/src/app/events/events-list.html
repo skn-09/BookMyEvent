@@ -1,0 +1,19 @@
+<div class="events-grid">
+  <div *ngFor="let event of events" class="event-card">
+    <mat-card>
+      <img *ngIf="event.imageUrl" [src]="event.imageUrl" alt="{{ event.title }}" class="event-image" />
+
+      <div class="event-body">
+        <p><strong>Event:</strong> {{ event.title }}</p>
+        <p><strong>Date:</strong> {{ event.date | date:'mediumDate' }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Description:</strong> {{ event.description }}</p>
+      </div>
+      <div class="event-footer">
+        <button mat-raised-button color="primary" (click)="bookSeats(event)">
+          Book Seats
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>

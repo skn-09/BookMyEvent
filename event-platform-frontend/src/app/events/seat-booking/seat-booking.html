@@ -1,0 +1,35 @@
+<mat-card class="seat-container">
+  <mat-card-content>
+
+    <div class="theater-screen">
+      <span>SCREEN</span>
+    </div>
+    <div class="seat-grid">
+      <div *ngFor="let row of seats" class="seat-row">
+        <div *ngFor="let seat of row" class="seat" [ngClass]="{
+               'seat-booked': seat.status === 'booked',
+               'seat-selected': seat.status === 'selected',
+               'seat-available': seat.status === 'available'
+             }" (click)="toggleSeat(seat)">
+          {{ seat.row }}-{{ seat.col }}
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button class="confirm-btn" mat-raised-button color="primary" (click)="confirmBooking()">Confirm Booking</button>
+    <button mat-stroked-button color="warn" routerLink="/events">Back</button>
+  </mat-card-actions>
+
+  <div *ngIf="bookingConfirmed" class="confirmation-overlay">
+    <mat-card-content>
+      <div class="booked-seats">
+        <span *ngFor="let seat of bookedSeats" class="seat-tag">
+          {{ seat.row }}-{{ seat.col }}
+        </span>
+      </div>
+    </mat-card-content>
+
+  </div>
+</mat-card>

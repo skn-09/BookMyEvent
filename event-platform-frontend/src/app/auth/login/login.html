@@ -1,0 +1,34 @@
+<div class="flex justify-center mt-10">
+  <mat-card class="matcard">
+    <h2 class="text-xl mb-4 text-center">Login</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="w-full mb-3">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="Enter your email" />
+        <mat-error *ngIf="form.get('email')?.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email')">
+          Enter a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full mb-3">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="Enter your password" />
+        <mat-error *ngIf="form.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="w-full">Login</button>
+    </form>
+
+    <div class="signuplink">
+      Don’t have an account?
+      <a routerLink="/signup" class="text-blue-600 hover:underline">Signup</a>
+    </div>
+  </mat-card>
+</div>
