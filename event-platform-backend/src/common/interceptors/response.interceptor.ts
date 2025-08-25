@@ -1,4 +1,3 @@
-// src/common/interceptors/response.interceptor.ts
 import {
   Injectable,
   NestInterceptor,
@@ -13,7 +12,7 @@ export class ResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => ({
         success: true,
-        data,   // just wrap the response
+        data,
       })),
     );
   }

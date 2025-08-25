@@ -1,6 +1,9 @@
-import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator';
+import {
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
+} from 'class-validator';
 
-// At least 8 chars, one uppercase, one lowercase, one number, one special char
 const STRONG_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
 export function IsStrongPassword(validationOptions?: ValidationOptions) {

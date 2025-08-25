@@ -29,7 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
   ],
   templateUrl: './login.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.css'],
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;

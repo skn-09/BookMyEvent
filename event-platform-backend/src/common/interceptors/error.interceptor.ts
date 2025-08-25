@@ -1,4 +1,3 @@
-// src/common/interceptors/error.interceptor.ts
 import {
   Injectable,
   NestInterceptor,
@@ -18,7 +17,9 @@ export class ErrorInterceptor implements NestInterceptor {
           return throwError(() => err);
         }
         console.error('Unexpected error:', err);
-        return throwError(() => new InternalServerErrorException('Something went wrong!'));
+        return throwError(
+          () => new InternalServerErrorException('Something went wrong!'),
+        );
       }),
     );
   }

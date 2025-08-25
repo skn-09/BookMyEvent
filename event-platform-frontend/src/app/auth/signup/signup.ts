@@ -29,7 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
   ],
   templateUrl: './signup.html',
-  styleUrls: ['./signup.component.css'],
+  styleUrls: ['./signup.css'],
 })
 export class SignupComponent implements OnInit {
   form!: FormGroup;

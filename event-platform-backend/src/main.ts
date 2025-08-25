@@ -23,6 +23,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ResponseInterceptor(), new ErrorInterceptor());
 
   await app.listen(3000);
-  console.log(`🚀 API running at http://localhost:3000`);
+  console.log(`API running at localhost:3000`);
 }
 bootstrap();

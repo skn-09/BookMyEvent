@@ -72,3 +72,12 @@ mat-error, .error-message {
   text-decoration: underline;
   color: #42a5f5; 
 }
+
+mat-error {
+  font-size: 13px;
+  font-weight: 500;
+  color: #d32f2f !important; 
+  margin-top: 4px;
+  margin-bottom: 8px; 
+  display: block;
+}

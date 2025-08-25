@@ -8,6 +8,6 @@ export const sequelizeConfig = (): SequelizeModuleOptions => ({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   autoLoadModels: true,
-  synchronize: true, // For demo; use migrations in production
+  synchronize: true,
   logging: false,
 });

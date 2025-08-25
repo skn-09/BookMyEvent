@@ -1,57 +1,3 @@
-/* .nb-toolbar {
-  background-color: #1e1e1e;
-  color: #ffffff; 
-  padding: 0 16px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
-}
-
-.nb-brand {
-  color: #ff3d00; 
-  text-decoration: none;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  font-size: 20px;
-}
-
-.nb-right a[mat-button],
-.nb-right button[mat-raised-button],
-.nb-right a[mat-raised-button] {
-  margin-left: 8px;
-  font-weight: 500;
-  transition: background 0.3s, color 0.3s;
-}
-
-a[mat-raised-button][color="primary"] {
-  background-color: #ff3d00; 
-  color: #ffffff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-a[mat-raised-button][color="primary"]:hover {
-  background-color: #ff6f00; 
-}
-
-a[mat-raised-button][color="accent"] {
-  background-color: #1e88e5; 
-  color: #ffffff;
-}
-
-a[mat-raised-button][color="accent"]:hover {
-  background-color: #42a5f5; 
-}
-
-a[mat-raised-button][color="warn"] {
-  background-color: #2c2c2c; 
-  color: #ffffff;
-}
-
-a[mat-raised-button][color="warn"]:hover {
-  background-color: #444444; 
-} */
-
-
-
-/* Reset browser defaults to remove unwanted margins/padding */
 html,
 body {
   margin: 0;
@@ -59,31 +5,28 @@ body {
   box-sizing: border-box;
 }
 
-/* Navbar container - full width red bar */
 .navbar {
-  background-color: #e50914; /* Bold red */
+  background-color: #e50914; 
   color: #ffffff;
-  width: 100%; /* Take full screen width */
-  min-height: 64px; /* Standard toolbar height */
-  margin: 0; /* Remove any external spacing */
-  padding: 0 20px; /* Internal horizontal spacing */
+  width: 100%; 
+  min-height: 64px; 
+  margin: 0; 
+  padding: 0 20px;
   display: flex;
-  justify-content: space-between; /* Brand left, links right */
+  justify-content: space-between; 
   align-items: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  position: fixed; /* Sticks to top */
+  position: fixed; 
   top: 0;
   left: 0;
-  z-index: 1000; /* Above all other content */
+  z-index: 1000; 
 }
 
-/* Add spacing for the rest of the page so content isn't hidden */
 main,
 .content {
-  padding-top: 64px; /* Matches navbar height */
+  padding-top: 64px; 
 }
 
-/* Brand text - white and bold */
 .navbar-brand {
   color: #ffffff;
   text-decoration: none;
@@ -96,7 +39,6 @@ main,
   opacity: 0.85;
 }
 
-/* Menu links (Home, Login) - white text */
 .navbar-menu a[mat-button] {
   color: #ffffff;
   font-weight: 500;
@@ -108,10 +50,9 @@ main,
   opacity: 0.8;
 }
 
-/* Sign Up / Logout buttons - white with red text */
 .navbar-btn {
-  background-color: #ffffff !important; /* White button */
-  color: #e50914 !important; /* Red text */
+  background-color: #ffffff !important; 
+  color: #e50914 !important; 
   font-weight: 600;
   margin-left: 12px;
   text-transform: uppercase;

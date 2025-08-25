@@ -6,21 +6,36 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Username</mat-label>
         <input matInput formControlName="username" placeholder="Enter your username" />
+        <mat-error *ngIf="form.get('username')?.hasError('required')">
+          Username is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <input matInput type="email" formControlName="email" placeholder="Enter your email" />
+        <mat-error *ngIf="form.get('email')?.hasError('required')">
+          Email is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Contact Number</mat-label>
         <input matInput type="text" formControlName="contact" placeholder="Enter your contact number" />
+        <mat-error *ngIf="form.get('contact')?.hasError('required')">
+          Contact is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password" placeholder="Enter your password" />
+        <mat-error *ngIf="form.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="form.get('password')?.hasError('password')">
+          Enter a valid password
+        </mat-error>
       </mat-form-field>
 
       <button mat-raised-button color="primary" class="signup-btn" type="submit">
