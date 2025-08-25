@@ -9,7 +9,13 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.html',
-  imports: [MatToolbarModule, MatButtonModule, CommonModule, RouterLink],
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    CommonModule,
+    RouterLink,
+    CommonModule,
+  ],
   styleUrls: ['./navbar.css'],
 })
 export class NavbarComponent {

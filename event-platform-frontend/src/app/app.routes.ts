@@ -4,10 +4,10 @@ import { SignupComponent } from './auth/signup/signup';
 import { EventsListComponent } from './events/events-list';
 import { AuthGuard } from './guards/auth.guard';
 import { SeatBookingComponent } from './events/seat-booking/seat-booking';
-import { HomeComponent } from './home/home';
+import { ThankYouComponent } from './events/Thank-You/thank-you';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'events', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'events', component: EventsListComponent },
@@ -16,5 +16,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     component: SeatBookingComponent,
   },
+  { path: 'thank-you', component: ThankYouComponent },
   { path: '**', redirectTo: '' },
 ];

@@ -1,7 +1,6 @@
 <mat-toolbar class="navbar">
     <a routerLink="/" class="navbar-brand">BookMyEvent</a>
     <div class="navbar-menu" display="flex" gap="10px">
-        <a mat-button routerLink="">Home</a>
         <a mat-button routerLink="./events">Events</a>
         <ng-container *ngIf="!(isAuthed$ | async)">
             <a mat-button routerLink="/login">Login</a>

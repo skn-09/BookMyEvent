@@ -44,12 +44,11 @@ export class AuthService {
     this.http.post('http://localhost:3000/auth/logout', {}).subscribe({
       next: () => {
         localStorage.removeItem(this.tokenKey);
-        this._isAuthed.next(false); // notify UI
-        this.router.navigate(['/login']); // redirect
+        this._isAuthed.next(false);
+        this.router.navigate(['/events']);
       },
       error: (err) => {
         console.error('Logout failed', err);
-        // Even if the server call fails, clear local storage
         localStorage.removeItem(this.tokenKey);
         this._isAuthed.next(false);
         this.router.navigate(['/login']);

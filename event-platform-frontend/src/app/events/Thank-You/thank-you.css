@@ -1,0 +1,21 @@
+.thank-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+mat-card {
+  max-width: 400px;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 100px;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.book{
+    font-size: 20px;
+}

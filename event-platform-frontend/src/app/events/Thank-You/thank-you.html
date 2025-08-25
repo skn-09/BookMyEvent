@@ -1,0 +1,15 @@
+<div class="thank-container">
+    <mat-card>
+        <mat-card-header>
+            <!-- <mat-icon color="primary">check_circle</mat-icon> -->
+            <span class="title">Thank You!</span>
+        </mat-card-header>
+
+        <mat-card-content>
+            <p>Your booking is confirmed </p>
+            <p *ngIf="seats">
+                <strong>Your Booked Seats:</strong> {{ seats }}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>

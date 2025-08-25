@@ -5,13 +5,14 @@
       <span>SCREEN</span>
     </div>
     <div class="seat-grid">
-      <div *ngFor="let row of seats" class="seat-row">
+      <div *ngFor="let row of seats let i = index" class="seat-row">
+        <div class="row-label">{{ alphabet[i] }}</div>
         <div *ngFor="let seat of row" class="seat" [ngClass]="{
                'seat-booked': seat.status === 'booked',
                'seat-selected': seat.status === 'selected',
                'seat-available': seat.status === 'available'
              }" (click)="toggleSeat(seat)">
-          {{ seat.row }}-{{ seat.col }}
+          {{ seat.col }}
         </div>
       </div>
     </div>

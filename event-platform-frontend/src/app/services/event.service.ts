@@ -24,8 +24,4 @@ export class EventService {
       }
     );
   }
-
-  addEvent(payload: any) {
-    return this.http.post('http://localhost:3000/events', payload);
-  }
 }

@@ -40,6 +40,7 @@ export class SeatBookingComponent implements OnInit {
   bookedSeats: Seat[] = [];
   bookingConfirmed = false;
   title: string = '';
+  alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   constructor(
     private route: ActivatedRoute,
@@ -97,17 +98,18 @@ export class SeatBookingComponent implements OnInit {
   }
 
   confirmBooking(): void {
-    const selectedSeats = this.seats
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const selectedSeatsForAPI = this.seats
       .flat()
       .filter((s) => s.status === 'selected')
       .map((s) => ({ row: s.row, col: s.col }));
 
-    if (!selectedSeats.length) {
+    if (!selectedSeatsForAPI.length) {
       this.snackBar.open('No seats selected!', 'Close', { duration: 2000 });
       return;
     }
 
-    this.eventService.bookSeats(this.eventId, selectedSeats).subscribe({
+    this.eventService.bookSeats(this.eventId, selectedSeatsForAPI).subscribe({
       next: () => {
         for (const seat of this.seats
           .flat()
@@ -116,11 +118,19 @@ export class SeatBookingComponent implements OnInit {
         }
 
         this.bookingConfirmed = true;
-        this.snackBar.open('Booking Confirmed ', 'Close', { duration: 3000 });
+        this.snackBar.open('Booking Confirmed', 'Close', { duration: 3000 });
+
+        const selectedSeatsLabels = selectedSeatsForAPI.map(
+          (s) => `${alphabet[s.row - 1]}${s.col}`
+        );
+
+        this.router.navigate(['/thank-you'], {
+          queryParams: { seats: selectedSeatsLabels.join(', ') },
+        });
       },
       error: (err) => {
         console.error('Booking failed:', err);
-        this.snackBar.open('Booking Failed ', 'Close', { duration: 3000 });
+        this.snackBar.open('Booking Failed', 'Close', { duration: 3000 });
       },
     });
   }
