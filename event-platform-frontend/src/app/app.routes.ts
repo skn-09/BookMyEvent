@@ -7,7 +7,7 @@ import { SeatBookingComponent } from './events/seat-booking/seat-booking';
 import { ThankYouComponent } from './events/Thank-You/thank-you';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'events', pathMatch: 'full' },
+  { path: '', component: EventsListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'events', component: EventsListComponent },
