@@ -6,7 +6,7 @@ body {
 }
 
 .navbar {
-  background-color: #e50914; 
+  background-color: #181617; 
   color: #ffffff;
   width: 100%; 
   min-height: 64px; 
@@ -52,7 +52,7 @@ main,
 
 .navbar-btn {
   background-color: #ffffff !important; 
-  color: #e50914 !important; 
+  color: #de2a2a !important; 
   font-weight: 600;
   margin-left: 12px;
   text-transform: uppercase;
