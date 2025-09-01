@@ -41,6 +41,8 @@ export class SeatBookingComponent implements OnInit {
   bookingConfirmed = false;
   title: string = '';
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  bookings: any[] = [];
+  loading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -107,6 +109,14 @@ export class SeatBookingComponent implements OnInit {
     if (!selectedSeatsForAPI.length) {
       this.snackBar.open('No seats selected!', 'Close', { duration: 2000 });
       return;
+    }
+
+    // 🔹 Add confirmation step here
+    const userConfirmed = window.confirm(
+      'Are you sure you want to confirm this booking?'
+    );
+    if (!userConfirmed) {
+      return; // Exit if user cancels
     }
 
     this.eventService.bookSeats(this.eventId, selectedSeatsForAPI).subscribe({

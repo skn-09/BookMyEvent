@@ -21,6 +21,13 @@ export class SeatsService {
   }
 
   toggleSeat(eventId: number, row: number, col: number): Observable<Seat> {
-    return this.http.post<Seat>(`${this.apiUrl}/toggle/${eventId}`, { row, col });
+    return this.http.post<Seat>(`${this.apiUrl}/toggle/${eventId}`, {
+      row,
+      col,
+    });
+  }
+
+  getMyBookings() {
+    return this.http.get<any[]>('http://localhost:3000/bookings/me');
   }
 }
