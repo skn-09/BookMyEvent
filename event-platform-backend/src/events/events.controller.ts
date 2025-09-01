@@ -1,6 +1,4 @@
-// src/events/events.controller.ts
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { Event } from './event.model';
 import { SeatsService } from '../seats/seats.service';
@@ -30,8 +28,14 @@ export class EventsController {
   @Post(':id/book-seats')
   async bookSeats(
     @Param('id') eventId: number,
-    @Body('seats') seats: { row: number; col: number }[],
+    @Body('seats') seats: { row: number; col: number; userId?: number }[],
   ) {
     return this.seatsService.bookSeatsSimple(eventId, seats);
+  }
+
+  // New endpoint to get user bookings
+  @Get('user/:userId/bookings')
+  async getUserBookings(@Param('userId') userId: number) {
+    return this.seatsService.getUserBookings(userId);
   }
 }

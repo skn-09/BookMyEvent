@@ -10,6 +10,11 @@ export interface Seat {
   isBooked: boolean;
 }
 
+export interface Booking {
+  eventName: string;
+  bookedSeats: string; // "A1, C1"
+  totalSeats: number;
+}
 @Injectable({ providedIn: 'root' })
 export class SeatsService {
   private apiUrl = 'http://localhost:3000/seats';
@@ -27,7 +32,9 @@ export class SeatsService {
     });
   }
 
-  getMyBookings() {
-    return this.http.get<any[]>('http://localhost:3000/bookings/me');
+  getMyBookings(): Observable<{ totalBookings: number; bookings: Booking[] }> {
+    return this.http.get<{ totalBookings: number; bookings: Booking[] }>(
+      `${this.apiUrl}/user-bookings`
+    );
   }
 }

@@ -28,4 +28,10 @@ export class EventService {
       }
     );
   }
+
+  getUserBookings(userId: number) {
+    return this.http.get<any>(
+      `http://localhost:3000/events/user/${userId}/bookings`
+    );
+  }
 }

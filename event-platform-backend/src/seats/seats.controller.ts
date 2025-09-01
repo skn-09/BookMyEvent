@@ -5,8 +5,12 @@ import {
   Param,
   Post,
   ParseIntPipe,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { SeatsService } from './seats.service';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @Controller('seats')
 export class SeatsController {
@@ -23,5 +27,11 @@ export class SeatsController {
     @Body() body: { seats: { row: number; col: number }[] },
   ) {
     return this.seatsService.bookSeatsSimple(eventId, body.seats);
+  }
+  @UseGuards(AuthGuard)
+  @Get('user-bookings')
+  async getUserBookings(@Req() req: Request) {
+    const userId = (req as any).user.id;
+    return this.seatsService.getUserBookings(userId);
   }
 }

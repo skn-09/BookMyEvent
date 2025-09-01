@@ -1,0 +1,17 @@
+<div class="bookings-container" *ngIf="!loading">
+    <h2>My Bookings</h2>
+
+    <p *ngIf="totalBookings === 0">No bookings yet.</p>
+
+    <div *ngFor="let booking of bookings" class="booking-card">
+        <mat-card>
+            <p><strong>Event:</strong> {{ booking.eventName }}</p>
+            <p><strong>Total Seats:</strong> {{ booking.totalSeats }}</p>
+            <p><strong>Booked Seats:</strong> {{ booking.bookedSeats }}</p>
+        </mat-card>
+    </div>
+
+    <button mat-raised-button color="primary" routerLink="/events">
+        Back to Events
+    </button>
+</div>

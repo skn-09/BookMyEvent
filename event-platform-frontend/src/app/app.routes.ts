@@ -7,6 +7,7 @@ import { SeatBookingComponent } from './events/seat-booking/seat-booking';
 import { ThankYouComponent } from './events/Thank-You/thank-you';
 import { NotFound } from './not-found/not-found';
 import { EventDetailsComponent } from './events/event-details/event-details';
+import { UserBookingsComponent } from './user-bookings/user-bookings';
 
 export const routes: Routes = [
   { path: '', component: EventsListComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     component: SeatBookingComponent,
   },
+  { path: 'user-bookings', component: UserBookingsComponent },
   { path: 'thank-you', component: ThankYouComponent },
   { path: '**', component: NotFound },
 ];

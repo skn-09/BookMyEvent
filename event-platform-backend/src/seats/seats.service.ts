@@ -16,19 +16,22 @@ export class SeatsService {
     private eventModel: typeof Event,
   ) {}
 
+  // Get all seats for an event
   async getSeatsForEvent(eventId: number): Promise<Seat[]> {
     const event = await this.eventModel.findByPk(eventId);
     if (!event) throw new NotFoundException('Event not found');
     return this.seatModel.findAll({ where: { eventId } });
   }
 
+  // Find seats by event
   async findByEvent(eventId: number) {
     return this.seatModel.findAll({ where: { eventId } });
   }
 
+  // Book seats for an event
   async bookSeatsSimple(
     eventId: number,
-    seats: { row: number; col: number }[],
+    seats: { row: number; col: number; userId?: number }[],
   ) {
     const event = await this.eventModel.findByPk(eventId);
     if (!event) throw new NotFoundException('Event not found');
@@ -63,6 +66,13 @@ export class SeatsService {
       const existing = existingMap.get(key);
       if (existing) {
         existing.isBooked = true;
+        if (
+          seats.find((seat) => seat.row === s.row && seat.col === s.col)?.userId
+        ) {
+          existing.userId = seats.find(
+            (seat) => seat.row === s.row && seat.col === s.col,
+          )?.userId!;
+        }
         await existing.save();
         updatedSeats.push(existing);
       } else {
@@ -71,6 +81,8 @@ export class SeatsService {
           row: s.row,
           col: s.col,
           isBooked: true,
+          userId: seats.find((seat) => seat.row === s.row && seat.col === s.col)
+            ?.userId,
         };
         const created = await this.seatModel.create(newSeat as any);
         updatedSeats.push(created);
@@ -79,10 +91,15 @@ export class SeatsService {
 
     return {
       message: 'Seats booked successfully',
-      booked: updatedSeats.map((s) => ({ row: s.row, col: s.col })),
+      booked: updatedSeats.map((s) => ({
+        row: s.row,
+        col: s.col,
+        userId: s.userId,
+      })),
     };
   }
 
+  // Simple book seats without user
   async bookSeats(eventId: number, seats: { row: number; col: number }[]) {
     for (const seat of seats) {
       await this.seatModel.update(
@@ -91,5 +108,39 @@ export class SeatsService {
       );
     }
     return { success: true };
+  }
+
+  // Get user bookings
+  async getUserBookings(userId: number) {
+    const bookedSeats = await this.seatModel.findAll({
+      where: { userId, isBooked: true },
+      include: [Event],
+    });
+
+    const bookingsByEvent: Record<
+      number,
+      { eventName: string; seats: string[] }
+    > = {};
+
+    bookedSeats.forEach((seat) => {
+      const eventId = seat.eventId;
+      if (!bookingsByEvent[eventId]) {
+        bookingsByEvent[eventId] = {
+          eventName: seat.event?.title || 'Unknown Event',
+          seats: [],
+        };
+      }
+      // Convert row number to letter (0 -> A, 1 -> B, etc.)
+      const rowLetter = String.fromCharCode(65 + seat.row);
+      bookingsByEvent[eventId].seats.push(`${rowLetter}${seat.col + 1}`);
+    });
+
+    const result = Object.values(bookingsByEvent).map((b) => ({
+      eventName: b.eventName,
+      bookedSeats: b.seats.join(', '),
+      totalSeats: b.seats.length,
+    }));
+
+    return { totalBookings: result.length, bookings: result };
   }
 }
