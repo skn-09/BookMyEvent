@@ -12,6 +12,10 @@ export class EventService {
       .pipe(map((res) => (Array.isArray(res) ? res : res?.data ?? [])));
   }
 
+  getEventById(eventId: number) {
+    return this.http.get<any>(`http://localhost:3000/events/${eventId}`);
+  }
+
   getSeats(eventId: number) {
     return this.http.get<any>(`http://localhost:3000/events/${eventId}/seats`);
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, Router } from '@angular/router';
 import { EventService } from '../services/event.service';
 
@@ -10,7 +9,7 @@ import { EventService } from '../services/event.service';
   templateUrl: './events-list.html',
   styleUrls: ['./event-list.css'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, RouterModule],
+  imports: [CommonModule, MatCardModule, RouterModule],
 })
 export class EventsListComponent implements OnInit {
   events: any[] = [];
@@ -28,7 +27,9 @@ export class EventsListComponent implements OnInit {
     });
   }
 
-  bookSeats(event: any) {
-    this.router.navigate(['/book-seats', event.id]);
+  goToDetails(event: any) {
+    this.router.navigate(['/events-details', event.id], {
+      state: { event },
+    });
   }
 }
