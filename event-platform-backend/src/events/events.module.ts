@@ -8,7 +8,7 @@ import { Seat } from '../seats/seat.model';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Event, Seat]),
+    SequelizeModule.forFeature([Event]),
     forwardRef(() => SeatsModule), // allow circular import
   ],
   controllers: [EventsController],

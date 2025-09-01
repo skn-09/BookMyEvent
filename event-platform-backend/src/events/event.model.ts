@@ -1,6 +1,6 @@
 // src/events/event.model.ts
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { Seat } from 'src/seats/seat.model';
+import { Seat } from '../seats/seat.model';
 
 @Table({ tableName: 'events', timestamps: true })
 export class Event extends Model<Event> {
