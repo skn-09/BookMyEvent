@@ -15,6 +15,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('events')
 export class EventsController {
+  @Get(':id')
+  async getEventById(@Param('id') id: number): Promise<Event> {
+    return this.eventsService.findById(id);
+  }
   constructor(
     private readonly eventsService: EventsService,
     private readonly seatsService: SeatsService,

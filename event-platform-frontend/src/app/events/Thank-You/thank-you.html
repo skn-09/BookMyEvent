@@ -7,9 +7,18 @@
 
         <mat-card-content>
             <p>Your booking is confirmed </p>
-            <p *ngIf="seats">
-                <strong>Your Booked Seats:</strong> {{ seats }}
-            </p>
+            <ng-container *ngIf="!eventNotFound; else errorBlock">
+                <p *ngIf="seats">
+                    <strong>Your Booked Seats:</strong> {{ seats }}
+                </p>
+                <p *ngIf="totalPrice">
+                    <strong>Total Price:</strong> ₹{{ totalPrice }}
+                </p>
+            </ng-container>
+            <ng-template #errorBlock>
+                <p style="color: red; font-weight: bold;">Event not found. Please check your booking or contact support.
+                </p>
+            </ng-template>
         </mat-card-content>
     </mat-card>
 </div>

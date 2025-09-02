@@ -5,6 +5,13 @@ import { SeatsService } from '../seats/seats.service';
 
 @Injectable()
 export class EventsService {
+  async findById(id: number): Promise<Event> {
+    const event = await this.eventRepository.findByPk(id);
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+    return event;
+  }
   constructor(
     @InjectModel(Event) private eventRepository: typeof Event,
     private readonly seatsService: SeatsService, // use seatsService here

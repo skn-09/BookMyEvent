@@ -135,7 +135,10 @@ export class SeatBookingComponent implements OnInit {
         );
 
         this.router.navigate(['/thank-you'], {
-          queryParams: { seats: selectedSeatsLabels.join(', ') },
+          queryParams: {
+            seats: selectedSeatsLabels.join(', '),
+            eventId: this.eventId,
+          },
         });
       },
       error: (err) => {
@@ -143,11 +146,5 @@ export class SeatBookingComponent implements OnInit {
         this.snackBar.open('Booking Failed', 'Close', { duration: 3000 });
       },
     });
-  }
-
-  closeBooking(): void {
-    this.bookingConfirmed = false;
-    this.bookedSeats = [];
-    this.router.navigate(['/events']);
   }
 }

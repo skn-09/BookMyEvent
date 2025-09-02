@@ -137,18 +137,21 @@ export class SeatsService {
 
     const bookingsByEvent: Record<
       number,
-      { eventName: string; seats: string[] }
+      { eventName: string; eventPrice: number; seats: string[] }
     > = {};
 
     bookedSeats.forEach((seat) => {
       const eventId = seat.eventId;
       let eventName = 'Unknown Event';
+      let eventPrice = 0;
       if (seat.event) {
         eventName = seat.event.title || 'Unknown Event';
+        eventPrice = seat.event.price || 0;
       }
       if (!bookingsByEvent[eventId]) {
         bookingsByEvent[eventId] = {
           eventName,
+          eventPrice,
           seats: [],
         };
       }
@@ -159,6 +162,7 @@ export class SeatsService {
 
     const result = Object.values(bookingsByEvent).map((b) => ({
       eventName: b.eventName,
+      price: b.eventPrice,
       bookedSeats: b.seats.join(', '),
       totalSeats: b.seats.length,
     }));

@@ -12,6 +12,7 @@ export interface Seat {
 
 export interface Booking {
   eventName: string;
+  price: number;
   bookedSeats: string; // "A1, C1"
   totalSeats: number;
 }
