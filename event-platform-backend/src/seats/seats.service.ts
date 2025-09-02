@@ -16,6 +16,26 @@ export class SeatsService {
     private eventModel: typeof Event,
   ) {}
 
+  // 🔹 Bulk create seats when new event is created
+  async bulkCreateSeatsForEvent(eventId: number) {
+    const rows = 10;
+    const cols = 8;
+    const seatsToCreate = [];
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        seatsToCreate.push({
+          eventId,
+          row,
+          col,
+          isBooked: false,
+        });
+      }
+    }
+
+    await this.seatModel.bulkCreate(seatsToCreate);
+  }
+
   // Get all seats for an event
   async getSeatsForEvent(eventId: number): Promise<Seat[]> {
     const event = await this.eventModel.findByPk(eventId);
@@ -38,9 +58,7 @@ export class SeatsService {
 
     const requestedPairs = seats.map((s) => ({ row: s.row, col: s.col }));
 
-    const existingSeats = await this.seatModel.findAll({
-      where: { eventId },
-    });
+    const existingSeats = await this.seatModel.findAll({ where: { eventId } });
 
     const existingMap = new Map<string, Seat>();
     existingSeats.forEach((s) => existingMap.set(`${s.row}:${s.col}`, s));
@@ -124,15 +142,19 @@ export class SeatsService {
 
     bookedSeats.forEach((seat) => {
       const eventId = seat.eventId;
+      let eventName = 'Unknown Event';
+      if (seat.event) {
+        eventName = seat.event.title || 'Unknown Event';
+      }
       if (!bookingsByEvent[eventId]) {
         bookingsByEvent[eventId] = {
-          eventName: seat.event?.title || 'Unknown Event',
+          eventName,
           seats: [],
         };
       }
       // Convert row number to letter (0 -> A, 1 -> B, etc.)
-      const rowLetter = String.fromCharCode(65 + seat.row);
-      bookingsByEvent[eventId].seats.push(`${rowLetter}${seat.col + 1}`);
+      const rowLetter = String.fromCharCode(65 + seat.row - 1);
+      bookingsByEvent[eventId].seats.push(`${rowLetter}${seat.col}`);
     });
 
     const result = Object.values(bookingsByEvent).map((b) => ({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 export interface Seat {
   id: number;
@@ -33,8 +33,18 @@ export class SeatsService {
   }
 
   getMyBookings(): Observable<{ totalBookings: number; bookings: Booking[] }> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // No token, return empty bookings
+      return of({ totalBookings: 0, bookings: [] });
+    }
     return this.http.get<{ totalBookings: number; bookings: Booking[] }>(
-      `${this.apiUrl}/user-bookings`
+      `${this.apiUrl}/user-bookings`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   }
 }

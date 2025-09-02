@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { EventsService } from './events.service';
 import { Event } from './event.model';
 import { SeatsService } from '../seats/seats.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('events')
 export class EventsController {
@@ -25,12 +35,19 @@ export class EventsController {
     return this.seatsService.findByEvent(eventId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post(':id/book-seats')
   async bookSeats(
     @Param('id') eventId: number,
-    @Body('seats') seats: { row: number; col: number; userId?: number }[],
+    @Body('seats') seats: { row: number; col: number }[],
+    @Req() req: Request,
   ) {
-    return this.seatsService.bookSeatsSimple(eventId, seats);
+    const userId =
+      (req as any).user?.id ||
+      (req as any).user?.sub ||
+      (req as any).user?.userId;
+    const seatsWithUser = seats.map((seat) => ({ ...seat, userId }));
+    return this.seatsService.bookSeatsSimple(eventId, seatsWithUser);
   }
 
   // New endpoint to get user bookings

@@ -22,8 +22,12 @@ export class UserBookingsComponent implements OnInit {
   ngOnInit(): void {
     this.seatsService.getMyBookings().subscribe({
       next: (res) => {
-        this.bookings = res.bookings || [];
-        this.totalBookings = res.totalBookings || 0;
+        const data: any =
+          res && typeof res === 'object' && 'data' in res
+            ? (res as any).data
+            : res;
+        this.bookings = data.bookings || [];
+        this.totalBookings = data.totalBookings || 0;
         this.loading = false;
       },
       error: (err) => {

@@ -38,7 +38,7 @@ export class Seat extends Model<SeatAttributes> implements SeatAttributes {
   @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
   isBooked!: boolean;
 
-  @Column({ type: DataType.INTEGER, allowNull: true }) // new column
+  @Column({ type: DataType.INTEGER, allowNull: true })
   userId?: number;
 
   @BelongsTo(() => Event)

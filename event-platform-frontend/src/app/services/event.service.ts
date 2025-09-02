@@ -21,10 +21,16 @@ export class EventService {
   }
 
   bookSeats(eventId: number, seats: { row: number; col: number }[]) {
+    const token = localStorage.getItem('auth_token');
     return this.http.post(
       `http://localhost:3000/events/${eventId}/book-seats`,
       {
         seats,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
   }
