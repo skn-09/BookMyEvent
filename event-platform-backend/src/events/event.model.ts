@@ -16,6 +16,9 @@ export class Event extends Model<Event> {
   @Column({ type: DataType.STRING })
   location?: string;
 
+  @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 200 })
+  price!: number;
+
   @Column({ type: DataType.STRING })
   imageUrl?: string;
 
