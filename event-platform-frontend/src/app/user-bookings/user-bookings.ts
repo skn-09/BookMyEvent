@@ -22,7 +22,6 @@ export class UserBookingsComponent implements OnInit {
   ngOnInit(): void {
     this.seatsService.getMyBookings().subscribe({
       next: (res: any) => {
-        // If your backend sends { success: true, data: { ... } }
         const data = res?.data || { totalBookings: 0, bookings: [] };
         this.bookings = data.bookings || [];
         this.totalBookings = data.totalBookings || 0;
@@ -59,7 +58,6 @@ export class UserBookingsComponent implements OnInit {
       next: () => {
         console.log('Booking cancelled');
 
-        // Refresh bookings list
         this.seatsService.getMyBookings().subscribe({
           next: (updated: any) => {
             const data = updated?.data || { totalBookings: 0, bookings: [] };

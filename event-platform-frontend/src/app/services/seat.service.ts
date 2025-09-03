@@ -11,7 +11,7 @@ export interface Seat {
 }
 
 export interface Booking {
-  eventId: number; // ✅ added
+  eventId: number;
   eventName: string;
   price: number;
   bookedSeats: string;

@@ -31,7 +31,6 @@ export class EventsController {
 
   @Post()
   async createEvent(@Body() eventData: Omit<Event, 'id'>): Promise<Event> {
-    // Convert DD-MM-YYYY to YYYY-MM-DD if needed
     if (eventData.date && /^\d{2}-\d{2}-\d{4}$/.test(eventData.date)) {
       const [day, month, year] = eventData.date.split('-');
       eventData.date = `${year}-${month}-${day}`;
@@ -59,7 +58,6 @@ export class EventsController {
     return this.seatsService.bookSeatsSimple(eventId, seatsWithUser);
   }
 
-  // New endpoint to get user bookings
   @Get('user/:userId/bookings')
   async getUserBookings(@Param('userId') userId: number) {
     return this.seatsService.getUserBookings(userId);

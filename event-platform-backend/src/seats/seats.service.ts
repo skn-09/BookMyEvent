@@ -111,7 +111,7 @@ export class SeatsService {
     });
 
     const result = Object.entries(bookingsByEvent).map(([eventId, b]) => ({
-      eventId: Number(eventId), // ✅ include eventId for frontend
+      eventId: Number(eventId),
       eventName: b.eventName,
       price: b.eventPrice,
       bookedSeats: b.seats.join(', '),

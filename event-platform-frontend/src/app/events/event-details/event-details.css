@@ -1,15 +1,13 @@
-/* Container for card + back button */
 .event-details-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
+  align-items: center; 
   padding: 30px;
   width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden; 
   box-sizing: border-box;
 }
 
-/* Event card */
 .event-card {
   position: relative;
   border: 1px solid #ccc;
@@ -22,7 +20,6 @@
   margin-top: 100px;
 }
 
-/* Background image */
 .event-bg-image {
   position: absolute;
   top: 0;
@@ -35,7 +32,6 @@
   z-index: 1;
 }
 
-/* Flex layout for image + content */
 .event-card-content {
   position: relative;
   z-index: 2;
@@ -47,7 +43,6 @@
   padding: 20px;
 }
 
-/* Left-side original image */
 .event-image-left {
   width: 250px;
   height: 250px;
@@ -56,7 +51,6 @@
   margin-right: 30px;
 }
 
-/* Content on right */
 .event-info {
   display: flex;
   flex-direction: column;
@@ -65,7 +59,6 @@
   flex: 1;
 }
 
-/* Book Seats button */
 .book-btn {
   align-self: flex-start;
   margin-top: auto;
@@ -83,7 +76,6 @@
   box-shadow: 0 4px 15px rgba(255, 75, 43, 0.6);
 }
 
-/* Rating styling */
 .rating {
   display: flex;
   align-items: center;
@@ -102,15 +94,13 @@
   color: #fff;
 }
 
-/* Back button container (centered below card) */
 .back-btn-container {
   width: 100%;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  margin-top: 20px; /* Space between card and button */
+  justify-content: center; 
+  margin-top: 20px; 
 }
 
-/* Back button styling */
 .back-btn {
   background-color: #000;
   color: #fff;

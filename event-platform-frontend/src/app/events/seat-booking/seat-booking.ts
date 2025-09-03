@@ -111,12 +111,11 @@ export class SeatBookingComponent implements OnInit {
       return;
     }
 
-    // 🔹 Add confirmation step here
     const userConfirmed = window.confirm(
       'Are you sure you want to confirm this booking?'
     );
     if (!userConfirmed) {
-      return; // Exit if user cancels
+      return;
     }
 
     this.eventService.bookSeats(this.eventId, selectedSeatsForAPI).subscribe({

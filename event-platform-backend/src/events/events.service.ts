@@ -14,7 +14,7 @@ export class EventsService {
   }
   constructor(
     @InjectModel(Event) private eventRepository: typeof Event,
-    private readonly seatsService: SeatsService, // use seatsService here
+    private readonly seatsService: SeatsService,
   ) {}
 
   async findAll(): Promise<Event[]> {

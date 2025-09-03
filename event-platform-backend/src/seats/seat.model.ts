@@ -14,7 +14,7 @@ export interface SeatAttributes {
   row: number;
   col: number;
   isBooked?: boolean;
-  userId?: number | null; // new column for user
+  userId?: number | null;
 }
 
 @Table({

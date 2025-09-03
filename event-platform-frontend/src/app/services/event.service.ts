@@ -47,7 +47,7 @@ export class EventService {
       `http://localhost:3000/events/${eventId}/cancel-booking`,
       {
         headers: { Authorization: `Bearer ${token}` },
-        body: { seatIds }, // DELETE can have body in Angular >= v5
+        body: { seatIds },
       }
     );
   }

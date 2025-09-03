@@ -24,7 +24,7 @@ export class SeatsController {
       (req as any).user?.sub ||
       (req as any).user?.userId;
     if (!userId) {
-      throw new Error('User ID not found in token'); // <-- your error
+      throw new Error('User ID not found in token');
     }
     return this.seatsService.getUserBookings(userId);
   }
