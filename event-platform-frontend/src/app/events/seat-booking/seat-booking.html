@@ -20,7 +20,7 @@
 
   <mat-card-actions align="end">
     <button class="confirm-btn" mat-raised-button color="primary" (click)="confirmBooking()">Confirm Booking</button>
-    <button mat-stroked-button color="warn" routerLink="/events">Back</button>
+    <button mat-stroked-button color="warn" class="back-btn" routerLink="/events">Back</button>
   </mat-card-actions>
 
   <div *ngIf="bookingConfirmed" class="confirmation-overlay">

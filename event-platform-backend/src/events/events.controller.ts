@@ -41,7 +41,7 @@ export class EventsController {
 
   @Get(':id/seats')
   async getSeats(@Param('id') eventId: number) {
-    return this.seatsService.findByEvent(eventId);
+    return this.seatsService.getSeatsForEvent(eventId);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -14,7 +14,7 @@ export interface SeatAttributes {
   row: number;
   col: number;
   isBooked?: boolean;
-  userId?: number; // new column for user
+  userId?: number | null; // new column for user
 }
 
 @Table({
@@ -39,7 +39,7 @@ export class Seat extends Model<SeatAttributes> implements SeatAttributes {
   isBooked!: boolean;
 
   @Column({ type: DataType.INTEGER, allowNull: true })
-  userId?: number;
+  userId?: number | null;
 
   @BelongsTo(() => Event)
   event?: Event;

@@ -11,11 +11,13 @@ export interface Seat {
 }
 
 export interface Booking {
+  eventId: number; // ✅ added
   eventName: string;
   price: number;
-  bookedSeats: string; // "A1, C1"
+  bookedSeats: string;
   totalSeats: number;
 }
+
 @Injectable({ providedIn: 'root' })
 export class SeatsService {
   private apiUrl = 'http://localhost:3000/seats';
@@ -26,26 +28,20 @@ export class SeatsService {
     return this.http.get<Seat[]>(`${this.apiUrl}/${eventId}`);
   }
 
-  toggleSeat(eventId: number, row: number, col: number): Observable<Seat> {
-    return this.http.post<Seat>(`${this.apiUrl}/toggle/${eventId}`, {
-      row,
-      col,
-    });
-  }
-
   getMyBookings(): Observable<{ totalBookings: number; bookings: Booking[] }> {
     const token = localStorage.getItem('token');
-    if (!token) {
-      // No token, return empty bookings
-      return of({ totalBookings: 0, bookings: [] });
-    }
+    if (!token) return of({ totalBookings: 0, bookings: [] });
+
     return this.http.get<{ totalBookings: number; bookings: Booking[] }>(
       `${this.apiUrl}/user-bookings`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      { headers: { Authorization: `Bearer ${token}` } }
     );
+  }
+
+  cancelBooking(eventId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.delete(`${this.apiUrl}/cancel/${eventId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   }
 }

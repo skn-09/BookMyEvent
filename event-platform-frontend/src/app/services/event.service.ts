@@ -40,4 +40,15 @@ export class EventService {
       `http://localhost:3000/events/user/${userId}/bookings`
     );
   }
+
+  cancelBooking(eventId: number, seatIds: number[]) {
+    const token = localStorage.getItem('auth_token');
+    return this.http.delete(
+      `http://localhost:3000/events/${eventId}/cancel-booking`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        body: { seatIds }, // DELETE can have body in Angular >= v5
+      }
+    );
+  }
 }

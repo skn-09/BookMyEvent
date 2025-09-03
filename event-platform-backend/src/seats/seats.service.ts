@@ -16,7 +16,6 @@ export class SeatsService {
     private eventModel: typeof Event,
   ) {}
 
-  // 🔹 Bulk create seats when new event is created
   async bulkCreateSeatsForEvent(eventId: number) {
     const rows = 10;
     const cols = 8;
@@ -36,19 +35,12 @@ export class SeatsService {
     await this.seatModel.bulkCreate(seatsToCreate);
   }
 
-  // Get all seats for an event
   async getSeatsForEvent(eventId: number): Promise<Seat[]> {
     const event = await this.eventModel.findByPk(eventId);
     if (!event) throw new NotFoundException('Event not found');
     return this.seatModel.findAll({ where: { eventId } });
   }
 
-  // Find seats by event
-  async findByEvent(eventId: number) {
-    return this.seatModel.findAll({ where: { eventId } });
-  }
-
-  // Book seats for an event
   async bookSeatsSimple(
     eventId: number,
     seats: { row: number; col: number; userId?: number }[],
@@ -56,41 +48,19 @@ export class SeatsService {
     const event = await this.eventModel.findByPk(eventId);
     if (!event) throw new NotFoundException('Event not found');
 
-    const requestedPairs = seats.map((s) => ({ row: s.row, col: s.col }));
-
     const existingSeats = await this.seatModel.findAll({ where: { eventId } });
-
     const existingMap = new Map<string, Seat>();
     existingSeats.forEach((s) => existingMap.set(`${s.row}:${s.col}`, s));
 
-    const alreadyBooked: string[] = [];
-    for (const s of requestedPairs) {
-      const key = `${s.row}:${s.col}`;
-      const existing = existingMap.get(key);
-      if (existing && existing.isBooked) {
-        alreadyBooked.push(`${s.row}-${s.col}`);
-      }
-    }
-
-    if (alreadyBooked.length) {
-      throw new ConflictException(
-        `Seats already booked: ${alreadyBooked.join(', ')}`,
-      );
-    }
-
     const updatedSeats: Seat[] = [];
-    for (const s of requestedPairs) {
+    for (const s of seats) {
       const key = `${s.row}:${s.col}`;
       const existing = existingMap.get(key);
       if (existing) {
+        if (existing.isBooked)
+          throw new ConflictException(`Seat ${s.row}-${s.col} already booked`);
         existing.isBooked = true;
-        if (
-          seats.find((seat) => seat.row === s.row && seat.col === s.col)?.userId
-        ) {
-          existing.userId = seats.find(
-            (seat) => seat.row === s.row && seat.col === s.col,
-          )?.userId!;
-        }
+        existing.userId = s.userId!;
         await existing.save();
         updatedSeats.push(existing);
       } else {
@@ -99,8 +69,7 @@ export class SeatsService {
           row: s.row,
           col: s.col,
           isBooked: true,
-          userId: seats.find((seat) => seat.row === s.row && seat.col === s.col)
-            ?.userId,
+          userId: s.userId,
         };
         const created = await this.seatModel.create(newSeat as any);
         updatedSeats.push(created);
@@ -117,18 +86,6 @@ export class SeatsService {
     };
   }
 
-  // Simple book seats without user
-  async bookSeats(eventId: number, seats: { row: number; col: number }[]) {
-    for (const seat of seats) {
-      await this.seatModel.update(
-        { isBooked: true },
-        { where: { eventId, row: seat.row, col: seat.col } },
-      );
-    }
-    return { success: true };
-  }
-
-  // Get user bookings
   async getUserBookings(userId: number) {
     const bookedSeats = await this.seatModel.findAll({
       where: { userId, isBooked: true },
@@ -142,31 +99,47 @@ export class SeatsService {
 
     bookedSeats.forEach((seat) => {
       const eventId = seat.eventId;
-      let eventName = 'Unknown Event';
-      let eventPrice = 0;
-      if (seat.event) {
-        eventName = seat.event.title || 'Unknown Event';
-        eventPrice = seat.event.price || 0;
-      }
       if (!bookingsByEvent[eventId]) {
         bookingsByEvent[eventId] = {
-          eventName,
-          eventPrice,
+          eventName: seat.event?.title || 'Unknown Event',
+          eventPrice: seat.event?.price || 0,
           seats: [],
         };
       }
-      // Convert row number to letter (0 -> A, 1 -> B, etc.)
       const rowLetter = String.fromCharCode(65 + seat.row - 1);
       bookingsByEvent[eventId].seats.push(`${rowLetter}${seat.col}`);
     });
 
-    const result = Object.values(bookingsByEvent).map((b) => ({
+    const result = Object.entries(bookingsByEvent).map(([eventId, b]) => ({
+      eventId: Number(eventId), // ✅ include eventId for frontend
       eventName: b.eventName,
       price: b.eventPrice,
       bookedSeats: b.seats.join(', '),
       totalSeats: b.seats.length,
+      totalPrice: b.eventPrice * b.seats.length,
     }));
 
     return { totalBookings: result.length, bookings: result };
+  }
+
+  async cancelBooking(eventId: number, userId: number) {
+    const bookedSeats = await this.seatModel.findAll({
+      where: { eventId, userId, isBooked: true },
+    });
+
+    if (!bookedSeats.length)
+      throw new NotFoundException('No booking found for this event');
+
+    for (const seat of bookedSeats) {
+      seat.isBooked = false;
+      seat.userId = null;
+      await seat.save();
+    }
+
+    return {
+      message: 'Booking cancelled successfully',
+      eventId,
+      releasedSeats: bookedSeats.map((s) => ({ row: s.row, col: s.col })),
+    };
   }
 }

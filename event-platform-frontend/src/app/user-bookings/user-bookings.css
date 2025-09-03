@@ -9,7 +9,7 @@
 
 .booking-card mat-card {
   padding: 15px;
-  border: 1px solid #ccc;
+  border: 3px solid #ccc;
   border-radius: 8px;
 }
 
@@ -17,7 +17,6 @@ button {
   margin-top: 20px;
   align-self: center;
 }
-
 
 .back-btn {
   background-color: #000;
@@ -31,4 +30,8 @@ button {
 .back-btn:hover {
   background-color: #333;
   transform: scale(1.05);
+}
+
+.cancel-btn {
+  border: 1px solid black;
 }
