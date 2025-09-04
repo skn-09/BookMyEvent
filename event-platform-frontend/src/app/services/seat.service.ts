@@ -29,7 +29,7 @@ export class SeatsService {
   }
 
   getMyBookings(): Observable<{ totalBookings: number; bookings: Booking[] }> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('auth_token');
     if (!token) return of({ totalBookings: 0, bookings: [] });
 
     return this.http.get<{ totalBookings: number; bookings: Booking[] }>(
@@ -39,7 +39,7 @@ export class SeatsService {
   }
 
   cancelBooking(eventId: number): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('auth_token');
     return this.http.delete(`${this.apiUrl}/cancel/${eventId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });

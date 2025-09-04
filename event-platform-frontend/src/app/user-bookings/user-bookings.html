@@ -5,18 +5,26 @@
 
     <div *ngFor="let booking of bookings" class="booking-card">
         <mat-card>
-            <p><strong>Event:</strong> {{ booking.eventName }}</p>
-            <p><strong>Total Seats:</strong> {{ booking.totalSeats }}</p>
-            <p><strong>Booked Seats:</strong> {{ booking.bookedSeats }}</p>
-            <p><strong>Total Price:</strong> ₹{{ booking.price * booking.totalSeats }}</p>
+            <div class="booking-card-content">
+                <div class="booking-info">
+                    <h3 class="event-title">{{ booking.eventName }}</h3>
 
-            <button mat-raised-button color="warn" class="cancel-btn" (click)="cancelBooking(booking.eventId)">
-                Cancel Booking
-            </button>
+                    <div class="booking-details">
+                        <p><strong>Quantity:</strong> {{ booking.totalSeats }}</p>
+                        <p><span class="icon">🎟️</span> <strong>Booked Seats:</strong> {{ booking.bookedSeats }}</p>
+                        <p><span class="icon">💰</span> <strong>Total Price:</strong> ₹{{ booking.price *
+                            booking.totalSeats }}</p>
+                    </div>
+
+                    <div class="cancel-section">
+                        <span class="cancel-text">If you want to cancel booking →</span>
+                        <button mat-raised-button color="warn" class="cancel-btn"
+                            (click)="cancelBooking(booking.eventId)">
+                            Cancel Booking
+                        </button>
+                    </div>
+                </div>
+            </div>
         </mat-card>
     </div>
-
-    <button mat-raised-button color="primary" class="back-btn" routerLink="/events">
-        Back to Events
-    </button>
 </div>

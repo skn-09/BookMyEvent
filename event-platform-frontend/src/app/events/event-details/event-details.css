@@ -1,35 +1,56 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .event-details-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  padding: 30px;
-  width: 100%;
-  overflow-x: hidden; 
+  align-items: center;
+}
+
+.event-background {
+  width: 100vw;               /* full horizontal stretch */
+  background-color: #000;     /* black strip */
+  display: flex;
+  justify-content: center;    /* center card horizontally */
+  align-items: center;        /* center card vertically */
+  padding: 60px 0;            /* vertical spacing */
   box-sizing: border-box;
 }
 
-.event-card {
+.event-bg-wrapper {
   position: relative;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  max-width: 900px;
+  max-width: 900px;           /* match card width */
   width: 100%;
-  height: 400px;
-  overflow: hidden;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-  margin-top: 100px;
+  height: 100%;
 }
 
 .event-bg-image {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: auto;
+  width: 100%;                /* only as wide as card */
+  height: 100%;               /* full height of black strip */
+  background-size: cover;
   background-position: center;
   filter: blur(4px) brightness(0.6);
   z-index: 1;
+}
+
+.event-card {
+  position: relative;
+  /* border-radius: 12px; */
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  z-index: 2;                 /* stay above background */
 }
 
 .event-card-content {
@@ -40,7 +61,7 @@
   width: 100%;
   height: 100%;
   align-items: center;
-  padding: 20px;
+  padding: auto ;
 }
 
 .event-image-left {
@@ -57,6 +78,7 @@
   justify-content: flex-start;
   color: #fff;
   flex: 1;
+  padding: auto;
 }
 
 .book-btn {
@@ -94,23 +116,3 @@
   color: #fff;
 }
 
-.back-btn-container {
-  width: 100%;
-  display: flex;
-  justify-content: center; 
-  margin-top: 20px; 
-}
-
-.back-btn {
-  background-color: #000;
-  color: #fff;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 8px;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.back-btn:hover {
-  background-color: #333;
-  transform: scale(1.05);
-}

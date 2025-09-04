@@ -1,11 +1,13 @@
-<div class="events-grid">
-  <div *ngFor="let event of events" class="event-card">
-    <mat-card class="event-card-inner">
+<div class="events-grid-wrapper">
+  <div class="events-grid">
+    <div *ngFor="let event of events" class="event-card">
+      <mat-card class="event-card-inner">
 
-      <img *ngIf="event.imageUrl" [src]="event.imageUrl" alt="{{ event.title }}" class="event-image"
-        (click)="goToDetails(event)" />
+        <img *ngIf="event.imageUrl" [src]="event.imageUrl" alt="{{ event.title }}" class="event-image"
+          (click)="goToDetails(event)" />
 
-      <h3 class="event-title">{{ event.title }}</h3>
-    </mat-card>
+        <h3 class="event-title">{{ event.title }}</h3>
+      </mat-card>
+    </div>
   </div>
 </div>

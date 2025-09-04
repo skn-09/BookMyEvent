@@ -7,11 +7,22 @@
   color: #212121;
 }
 
+.events-grid-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* center the grid horizontally */
+  padding: 10px;
+  box-sizing: border-box;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(5, minmax(200px, 1fr)); /* 5 cards per row, responsive */
+  gap: 50px;                                           /* consistent gap */
+  max-width: calc(5 * 200px + 4 * 20px); 
+  justify-content: center;
   padding: 20px;
   margin-top: 40px;
 }
@@ -24,9 +35,11 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;                 
+  gap: 20px;  
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  width: 100%;
 }
 
 .event-card:hover {
