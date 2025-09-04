@@ -15,18 +15,18 @@ html, body {
 }
 
 .event-background {
-  width: 100vw;               /* full horizontal stretch */
-  background-color: #000;     /* black strip */
+  width: 100vw;               
+  background-color: #000;    
   display: flex;
-  justify-content: center;    /* center card horizontally */
-  align-items: center;        /* center card vertically */
-  padding: 60px 0;            /* vertical spacing */
+  justify-content: center;    
+  align-items: center;        
+  padding: 60px 0;            
   box-sizing: border-box;
 }
 
 .event-bg-wrapper {
   position: relative;
-  max-width: 900px;           /* match card width */
+  max-width: 900px;           
   width: 100%;
   height: 100%;
 }
@@ -35,8 +35,8 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;                /* only as wide as card */
-  height: 100%;               /* full height of black strip */
+  width: 100%;               
+  height: 100%;               
   background-size: cover;
   background-position: center;
   filter: blur(4px) brightness(0.6);
@@ -45,12 +45,11 @@ html, body {
 
 .event-card {
   position: relative;
-  /* border-radius: 12px; */
   width: 100%;
   height: 400px;
   overflow: hidden;
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-  z-index: 2;                 /* stay above background */
+  z-index: 2;                 
 }
 
 .event-card-content {

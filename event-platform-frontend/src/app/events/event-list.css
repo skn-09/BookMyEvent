@@ -10,7 +10,7 @@
 .events-grid-wrapper {
   width: 100%;
   display: flex;
-  justify-content: center; /* center the grid horizontally */
+  justify-content: center; 
   padding: 10px;
   box-sizing: border-box;
   margin-left: 20px;
@@ -19,8 +19,8 @@
 
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(200px, 1fr)); /* 5 cards per row, responsive */
-  gap: 50px;                                           /* consistent gap */
+  grid-template-columns: repeat(5, minmax(200px, 1fr)); 
+  gap: 50px;                                           
   max-width: calc(5 * 200px + 4 * 20px); 
   justify-content: center;
   padding: 20px;
